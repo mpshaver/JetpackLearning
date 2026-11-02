@@ -14,10 +14,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,10 +32,13 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             JetpackLearningTheme {
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
                     BirthdayCard(
-                        message = "Happy Birthday Michael!",
-                        from = "From Michael"
+                        message = stringResource(R.string.happy_birthday_text),
+                        from = stringResource(R.string.signature_text)
                     )
                 }
             }
@@ -43,8 +48,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BirthdayCard(message: String, from: String, modifier: Modifier = Modifier) {
-    val imageFromList = listOf(R.drawable.birthday, R.drawable.bday2).random()
-    val image = painterResource(imageFromList)
+    val imageRes = remember { listOf(R.drawable.birthday, R.drawable.bday2).random() }
+    val image = painterResource(imageRes)
     Box(modifier = modifier) {
         Image(
             painter = image,
@@ -90,8 +95,8 @@ fun BirthdayMessage(message: String, from: String, modifier: Modifier = Modifier
 fun BirthdayCardPreview() {
     JetpackLearningTheme {
         BirthdayCard(
-            message = "Happy Birthday Michael!",
-            from = "from " + listOf("Michael", "Lucas", "John").random()
+            message = stringResource(R.string.happy_birthday_text),
+            from = stringResource(R.string.signature_text)
         )
     }
 }
